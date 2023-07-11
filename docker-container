@@ -1,0 +1,31 @@
+pipeline {
+    agent any
+    
+    stages {
+        stage('Checkout') {
+            steps {
+                // Checkout your source code from the version control system
+                // e.g., git, svn, etc.
+                // Add your specific SCM configuration here
+                checkout scm
+            }
+        }
+        
+        stage('Build Docker Image') {
+            steps {
+                // Build your Docker image using a Dockerfile
+                // You can customize this according to your project's requirements
+                sh 'docker build -t my-docker-image .'
+            }
+        }
+        
+        stage('Run Docker Container') {
+            steps {
+                // Run your Docker container from the built image
+                // You can add additional parameters or mount volumes as needed
+                sh 'docker run -d --name my-container -p 8080:80 my-docker-image'
+            }
+        }
+    }
+}
+
